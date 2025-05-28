@@ -42,4 +42,7 @@ public class EnergyBill {
     @PositiveOrZero(message = "O valor total da conta (amount) deve ser zero ou positivo.")
     private Double amount;
 
+    @NotNull(message = "O mês de referência (month) não pode ser nulo.")
+    private String month;
+
 }
