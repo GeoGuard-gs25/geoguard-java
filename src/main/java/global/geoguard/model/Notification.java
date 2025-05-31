@@ -32,12 +32,10 @@ public class Notification {
     @NotBlank
     private String title;
 
-    @NotBlank
-    private String message;
-
     @Size(max = 500)
     @Column(length = 500)
-    private String mensagem;
+    @NotBlank
+    private String message;
 
     @PastOrPresent
     private LocalDateTime dataEnvio;

@@ -1,15 +1,19 @@
 package global.geoguard.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import global.geoguard.model.Notification;
+import global.geoguard.model.NotificationFilter;
 import global.geoguard.repository.NotificationRepository;
-
+import global.geoguard.specification.NotificationSpecification;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -25,8 +29,12 @@ public class NotificationController {
     @Operation(summary = "Lista todas as notificações")
     @ApiResponse(responseCode = "200", description = "Lista de notificações retornada com sucesso")
     @GetMapping
-    public List<Notification> getAll() {
-        return notificationRepository.findAll();
+    public Page<Notification> index(
+            NotificationFilter filter,
+            @PageableDefault(size = 10, sort = "date", direction = Direction.DESC) Pageable pageable) {
+
+        var specification = NotificationSpecification.withFilters(filter);
+        return notificationRepository.findAll(specification, pageable);
     }
 
     @Operation(summary = "Busca uma notificação por ID")
@@ -65,7 +73,6 @@ public class NotificationController {
             Notification existing = optional.get();
             existing.setTitle(updatedNotification.getTitle());
             existing.setMessage(updatedNotification.getMessage());
-            existing.setMensagem(updatedNotification.getMensagem());
             existing.setLida(updatedNotification.isLida());
 
             Notification saved = notificationRepository.save(existing);
