@@ -28,7 +28,6 @@ public class AuthFilter extends OncePerRequestFilter {
 
         if (path.equals("/login") || path.equals("/users")) {
             filterChain.doFilter(request, response);
-            System.out.println("Passando pelo filtro de autenticação");
             return;
         }
 
