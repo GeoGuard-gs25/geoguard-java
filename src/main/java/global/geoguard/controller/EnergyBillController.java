@@ -13,6 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 import java.util.Optional;
 
 @RestController
@@ -22,12 +26,21 @@ public class EnergyBillController {
     @Autowired
     private EnergyBillRepository energyBillRepository;
 
+    @Operation(summary = "Retorna todas as faturas de energia do usuário autenticado")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Faturas retornadas com sucesso")
+    })
     @GetMapping
     public Page<EnergyBillDTO> getUserBills(@AuthenticationPrincipal User user, Pageable pageable) {
         return energyBillRepository.findByOwnerId(user.getId(), pageable)
                 .map(this::toDTO);
     }
 
+    @Operation(summary = "Retorna uma fatura específica do usuário autenticado")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Fatura retornada com sucesso"),
+            @ApiResponse(responseCode = "403", description = "Acesso negado à fatura")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<EnergyBillDTO> getBillById(@PathVariable Long id, @AuthenticationPrincipal User user) {
         Optional<EnergyBill> bill = energyBillRepository.findById(id);
@@ -39,6 +52,11 @@ public class EnergyBillController {
         }
     }
 
+    @Operation(summary = "Cria uma nova fatura de energia para o usuário autenticado")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Fatura criada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos")
+    })
     @PostMapping
     public ResponseEntity<EnergyBillDTO> createBill(@RequestBody @Valid EnergyBill energyBill,
             @AuthenticationPrincipal User user) {
@@ -47,6 +65,11 @@ public class EnergyBillController {
         return ResponseEntity.ok(toDTO(saved));
     }
 
+    @Operation(summary = "Atualiza uma fatura existente do usuário autenticado")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Fatura atualizada com sucesso"),
+            @ApiResponse(responseCode = "403", description = "Acesso negado à fatura")
+    })
     @PutMapping("/{id}")
     public ResponseEntity<EnergyBillDTO> updateBill(@PathVariable Long id,
             @RequestBody @Valid EnergyBill updatedBill,
@@ -66,6 +89,11 @@ public class EnergyBillController {
         }
     }
 
+    @Operation(summary = "Deleta uma fatura existente do usuário autenticado")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Fatura deletada com sucesso"),
+            @ApiResponse(responseCode = "403", description = "Acesso negado à fatura")
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBill(@PathVariable Long id, @AuthenticationPrincipal User user) {
         Optional<EnergyBill> bill = energyBillRepository.findById(id);

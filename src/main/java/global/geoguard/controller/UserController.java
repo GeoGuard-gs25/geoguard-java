@@ -10,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -23,6 +27,11 @@ public class UserController {
     @Autowired
     private TokenService tokenService;
 
+    @Operation(summary = "Cria um novo usuário e retorna um token JWT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuário criado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Erro de validação dos dados")
+    })
     @PostMapping
     public Token create(@RequestBody @Valid User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
