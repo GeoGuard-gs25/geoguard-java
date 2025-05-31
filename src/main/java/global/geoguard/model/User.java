@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user")
+@Table(name = "usuario")
 public class User implements UserDetails {
 
     @Id
