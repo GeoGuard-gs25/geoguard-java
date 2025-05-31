@@ -1,5 +1,7 @@
 package global.geoguard.controller;
 
+import global.geoguard.dto.EnergyBillDTO;
+import global.geoguard.dto.UserDTO;
 import global.geoguard.model.EnergyBill;
 import global.geoguard.model.User;
 import global.geoguard.repository.EnergyBillRepository;
@@ -21,29 +23,33 @@ public class EnergyBillController {
     private EnergyBillRepository energyBillRepository;
 
     @GetMapping
-    public Page<EnergyBill> getUserBills(@AuthenticationPrincipal User user, Pageable pageable) {
-        return energyBillRepository.findByOwnerId(user.getId(), pageable);
+    public Page<EnergyBillDTO> getUserBills(@AuthenticationPrincipal User user, Pageable pageable) {
+        return energyBillRepository.findByOwnerId(user.getId(), pageable)
+                .map(this::toDTO);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EnergyBill> getBillById(@PathVariable Long id, @AuthenticationPrincipal User user) {
+    public ResponseEntity<EnergyBillDTO> getBillById(@PathVariable Long id, @AuthenticationPrincipal User user) {
         Optional<EnergyBill> bill = energyBillRepository.findById(id);
 
         if (bill.isPresent() && bill.get().getOwner().getId().equals(user.getId())) {
-            return ResponseEntity.ok(bill.get());
+            return ResponseEntity.ok(toDTO(bill.get()));
         } else {
             return ResponseEntity.status(403).build();
         }
     }
 
     @PostMapping
-    public EnergyBill createBill(@RequestBody @Valid EnergyBill energyBill, @AuthenticationPrincipal User user) {
+    public ResponseEntity<EnergyBillDTO> createBill(@RequestBody @Valid EnergyBill energyBill,
+            @AuthenticationPrincipal User user) {
         energyBill.setOwner(user);
-        return energyBillRepository.save(energyBill);
+        EnergyBill saved = energyBillRepository.save(energyBill);
+        return ResponseEntity.ok(toDTO(saved));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EnergyBill> updateBill(@PathVariable Long id, @RequestBody @Valid EnergyBill updatedBill,
+    public ResponseEntity<EnergyBillDTO> updateBill(@PathVariable Long id,
+            @RequestBody @Valid EnergyBill updatedBill,
             @AuthenticationPrincipal User user) {
         Optional<EnergyBill> existing = energyBillRepository.findById(id);
 
@@ -53,7 +59,8 @@ public class EnergyBillController {
             bill.setValorKwh(updatedBill.getValorKwh());
             bill.setAmount(updatedBill.getAmount());
             bill.setMonth(updatedBill.getMonth());
-            return ResponseEntity.ok(energyBillRepository.save(bill));
+            EnergyBill saved = energyBillRepository.save(bill);
+            return ResponseEntity.ok(toDTO(saved));
         } else {
             return ResponseEntity.status(403).build();
         }
@@ -69,5 +76,18 @@ public class EnergyBillController {
         } else {
             return ResponseEntity.status(403).build();
         }
+    }
+
+    private EnergyBillDTO toDTO(EnergyBill bill) {
+        User owner = bill.getOwner();
+        UserDTO ownerDTO = new UserDTO(owner.getId(), owner.getName(), owner.getEmail());
+
+        return new EnergyBillDTO(
+                bill.getId(),
+                bill.getConsumoKwh(),
+                bill.getValorKwh(),
+                bill.getAmount(),
+                bill.getMonth(),
+                ownerDTO);
     }
 }

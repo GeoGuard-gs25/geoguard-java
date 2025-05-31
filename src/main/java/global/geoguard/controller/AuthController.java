@@ -12,8 +12,10 @@ import global.geoguard.service.AuthService;
 import global.geoguard.service.TokenService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
+@RequestMapping("/login")
 public class AuthController {
 
     @Autowired
@@ -25,7 +27,7 @@ public class AuthController {
     @Autowired
     private TokenService tokenService;
 
-    @PostMapping("/login")
+    @PostMapping
     public Token login(@RequestBody Credentials credentials) {
         User user = (User) authService.loadUserByUsername(credentials.email());
         if (!passwordEncoder.matches(credentials.password(), user.getPassword())) {
