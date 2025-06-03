@@ -26,7 +26,6 @@ public class EnergyBill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "O proprietário (owner) não pode ser nulo.")
     @ManyToOne
     private User owner;
 
