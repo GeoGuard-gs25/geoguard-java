@@ -65,7 +65,6 @@ Campos: `id`, `title`, `message`, `dataEnvio`, `lida`
 
 ```bash
 curl -X POST http://localhost:8080/energy-bills -H "Authorization: Bearer SEU_TOKEN_AQUI" -H "Content-Type: application/json" -d '{
-  "ownerId": 1,
   "consumoKwh": 300.5,
   "valorKwh": 0.75,
   "amount": 225.38,
@@ -99,7 +98,6 @@ curl http://localhost:8080/notifications -H "Authorization: Bearer SEU_TOKEN_AQU
 
 ```bash
 curl -X PUT http://localhost:8080/energy-bills/1 -H "Authorization: Bearer SEU_TOKEN_AQUI" -H "Content-Type: application/json" -d '{
-  "ownerId": 1,
   "consumoKwh": 350.0,
   "valorKwh": 0.80,
   "amount": 280.00,
