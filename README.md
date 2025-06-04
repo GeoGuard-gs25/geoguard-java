@@ -119,7 +119,7 @@ curl -X DELETE http://localhost:8080/energy-bills/1 -H "Authorization: Bearer SE
 
 - Java 17+
 - Maven 3.8+
-- PostgreSQL ou H2
+- PostgreSQL
 - IDE (IntelliJ, Eclipse, VS Code)
 
 ---
@@ -161,4 +161,7 @@ Authorization: Bearer SEU_TOKEN
 
 ---
 
-## 👨‍💻 Autor
+## 👨‍💻 Autores
+-  Guilherme Alves Pedroso - RM555357
+-  João Vitor Silva Nascimento - RM554694
+-  Rafael Souza Bezerra - 557888
