@@ -31,7 +31,7 @@ public class NotificationController {
     @GetMapping
     public Page<Notification> index(
             NotificationFilter filter,
-            @PageableDefault(size = 10, sort = "date", direction = Direction.DESC) Pageable pageable) {
+            @PageableDefault(size = 10, sort = "dataEnvio", direction = Direction.DESC) Pageable pageable) {
 
         var specification = NotificationSpecification.withFilters(filter);
         return notificationRepository.findAll(specification, pageable);

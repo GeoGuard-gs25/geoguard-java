@@ -22,7 +22,9 @@ public class NotificationSpecification {
                 predicates.add(cb.like(cb.lower(root.get("message")), "%" + filter.message().toLowerCase() + "%"));
             }
 
-            predicates.add(cb.equal(root.get("lida"), filter.lida()));
+            if( filter.lida() != null) {
+                predicates.add(cb.equal(root.get("lida"), filter.lida()));
+            }
 
             return cb.and(predicates.toArray(new Predicate[0]));
         };
