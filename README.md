@@ -3,6 +3,8 @@
 API desenvolvida em **Spring Boot** para gerenciar usuários, contas de energia elétrica e notificações. O acesso é protegido por autenticação JWT.
 
 ---
+## Url do deploy em nuvem
+http://4.246.217.166:8080/
 
 ## 🛡️ Autenticação via JWT
 
