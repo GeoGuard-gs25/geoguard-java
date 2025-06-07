@@ -9,7 +9,7 @@ API desenvolvida em **Spring Boot** para gerenciar usuários, contas de energia 
 ### 🔐 1. Registro de novo usuário
 
 ```bash
-curl -X POST http://localhost:8080/auth/register -H "Content-Type: application/json" -d '{
+curl -X POST http://4.246.217.166:8080/auth/register -H "Content-Type: application/json" -d '{
   "name": "João Silva",
   "email": "joao@email.com",
   "password": "senha123"
@@ -29,7 +29,7 @@ curl -X POST http://localhost:8080/auth/register -H "Content-Type: application/j
 ### 🔐 2. Login
 
 ```bash
-curl -X POST http://localhost:8080/auth/login -H "Content-Type: application/json" -d '{
+curl -X POST http://4.246.217.166:8080/auth/login -H "Content-Type: application/json" -d '{
   "email": "joao@email.com",
   "password": "senha123"
 }'
@@ -64,7 +64,7 @@ Campos: `id`, `title`, `message`, `dataEnvio`, `lida`
 ### ⚡ Criar nova conta
 
 ```bash
-curl -X POST http://localhost:8080/energy-bills -H "Authorization: Bearer SEU_TOKEN_AQUI" -H "Content-Type: application/json" -d '{
+curl -X POST http://4.246.217.166:8080/energy-bills -H "Authorization: Bearer SEU_TOKEN_AQUI" -H "Content-Type: application/json" -d '{
   "consumoKwh": 300.5,
   "valorKwh": 0.75,
   "amount": 225.38,
@@ -75,7 +75,7 @@ curl -X POST http://localhost:8080/energy-bills -H "Authorization: Bearer SEU_TO
 ### 🔔 Criar nova notificação
 
 ```bash
-curl -X POST http://localhost:8080/notifications -H "Authorization: Bearer SEU_TOKEN_AQUI" -H "Content-Type: application/json" -d '{
+curl -X POST http://4.246.217.166:8080/notifications -H "Authorization: Bearer SEU_TOKEN_AQUI" -H "Content-Type: application/json" -d '{
   "title": "Nova conta gerada",
   "message": "Sua conta foi emitida com sucesso.",
   "lida": false
@@ -85,19 +85,19 @@ curl -X POST http://localhost:8080/notifications -H "Authorization: Bearer SEU_T
 ### ⚡ Listar contas
 
 ```bash
-curl http://localhost:8080/energy-bills -H "Authorization: Bearer SEU_TOKEN_AQUI"
+curl http://4.246.217.166:8080/energy-bills -H "Authorization: Bearer SEU_TOKEN_AQUI"
 ```
 
 ### 🔔 Listar notificações
 
 ```bash
-curl http://localhost:8080/notifications -H "Authorization: Bearer SEU_TOKEN_AQUI"
+curl http://4.246.217.166:8080/notifications -H "Authorization: Bearer SEU_TOKEN_AQUI"
 ```
 
 ### ⚡ Atualizar conta
 
 ```bash
-curl -X PUT http://localhost:8080/energy-bills/1 -H "Authorization: Bearer SEU_TOKEN_AQUI" -H "Content-Type: application/json" -d '{
+curl -X PUT http://4.246.217.166:8080/energy-bills/1 -H "Authorization: Bearer SEU_TOKEN_AQUI" -H "Content-Type: application/json" -d '{
   "consumoKwh": 350.0,
   "valorKwh": 0.80,
   "amount": 280.00,
@@ -108,7 +108,7 @@ curl -X PUT http://localhost:8080/energy-bills/1 -H "Authorization: Bearer SEU_T
 ### 🗑️ Deletar conta
 
 ```bash
-curl -X DELETE http://localhost:8080/energy-bills/1 -H "Authorization: Bearer SEU_TOKEN_AQUI"
+curl -X DELETE http://4.246.217.166:8080/energy-bills/1 -H "Authorization: Bearer SEU_TOKEN_AQUI"
 ```
 
 ---
