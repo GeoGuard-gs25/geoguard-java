@@ -161,6 +161,12 @@ Authorization: Bearer SEU_TOKEN
 
 ---
 
+## 📹 Vídeos do Projeto
+
+- 🎥 **Apresentação da Solução GeoGuard:**  
+  [Link do vídeo](https://youtu.be/YNFErko31fM?si=hFlQK_vrn-SA1UdO)
+
+
 ## 👨‍💻 Autores
 -  Guilherme Alves Pedroso - RM555357
 -  João Vitor Silva Nascimento - RM554694
