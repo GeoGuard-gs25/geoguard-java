@@ -161,6 +161,11 @@ Authorization: Bearer SEU_TOKEN
 
 ---
 
+## 📂 Repositório do Projeto
+
+Todos os repositórios estão disponiveis em nossa organização do github:  
+📎 [Link da organização](https://github.com/GeoGuard-gs25)
+
 ## 📹 Vídeos do Projeto
 
 - 🎥 **Apresentação da Solução GeoGuard:**  
