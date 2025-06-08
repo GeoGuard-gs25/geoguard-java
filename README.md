@@ -173,6 +173,9 @@ Todos os repositórios estão disponiveis em nossa organização do github:
 - 🎥 **Apresentação da Solução GeoGuard:**  
   [Link do vídeo](https://youtu.be/YNFErko31fM?si=hFlQK_vrn-SA1UdO)
 
+- 🎥 **Pitch GeoGuard:**
+-   [Link do pitch](https://youtu.be/P2tlEBYjZfE) 
+
 
 ## 👨‍💻 Autores
 -  Guilherme Alves Pedroso - RM555357
